@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title> NISARGA S ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  font-family:'Poppins',Arial;
+  overflow:hidden;
+}
+
+/* HEARTS */
+.heart{
+  position:absolute;
+  bottom:-40px;
+  font-size:40px;
+  animation:floatUp 8s linear infinite;
+  opacity:.7;
+}
+.slowHeart{
+  font-size:60px;
+  animation-duration:12s;
+}
+@keyframes floatUp{
+  to{transform:translateY(-130vh) scale(1.5);opacity:0}
+}
+
+/* PAGE */
+.page{
+  display:none;
+  background:white;
+  width:92%;
+  max-width:460px;
+  padding:30px;
+  border-radius:30px;
+  text-align:center;
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+  animation:cardIn .6s ease forwards;
+}
+.page.active{display:block}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(40px) scale(.9)}
+  to{opacity:1;transform:none}
+}
+
+/* GIF */
+.gif{width:180px;animation:pop 1s infinite alternate}
+@keyframes pop{to{transform:scale(1.06)}}
+
+/* BUTTON */
+button{
+  padding:14px 26px;
+  margin:10px;
+  border:none;
+  border-radius:35px;
+  background:#ff4d6d;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{transform:scale(1.1)}
+.back{background:#666}
+.big{width:85%}
+.option{display:block;width:85%;margin:12px auto}
+
+.correct{color:#ff4d6d;font-weight:bold}
+.wrong{color:#555}
+
+/* TYPEWRITER */
+#typeText{min-height:70px;font-size:18px}
+
+/* BIG FINAL HEART */
+#bigHeart{
+  font-size:100px;
+  cursor:pointer;
+  display:none;
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  50%{transform:scale(1.2)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div class="page active" id="home">
+  <img class="gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <h2>Will you be mine? 🥺❤️</h2>
+  <button onclick="show('happy')">YES</button>
+  <button id="noBtn">NO</button>
+</div>
+
+<!-- HAPPY -->
+<div class="page" id="happy">
+  <img class="gif" src="C:\Users\Anusha\OneDrive\Pictures\Saved Pictures\Screenshots\nishuma.png.png" alt="Nishuma ❤️">">
+  <h2>“No pressure. Just love.
+No rush. Just us.
+Happy Valentine’s Day Nishiiiiiiiiiiiiiiii ❤️”
+
+“Nishu is Officially mine now 💍💖
+No return, no refund 😌”</h2>
+  <button onclick="show('gifts')">See Gifts 🎁</button>
+</div>
+
+<!-- GIFTS -->
+<div class="page" id="gifts">
+  <h2>Your Gifts 💝</h2>
+  <button class="big" onclick="show('quiz')">🎁 Gift 1</button>
+  <button class="big" onclick="show('letter')">💌 Gift 2</button>
+  <button class="big" onclick="show('photos')">📸 Gift 3</button>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="quiz">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+  <p id="msg"></p>
+  <button class="back" onclick="show('gifts')">⬅ Back</button>
+</div>
+
+<!-- LETTER -->
+<div class="page" id="letter">
+  <img class="gif" src="C:\Users\Anusha\OneDrive\Documents\Desktop\9dc4af8f15f9bfd7bb20271cbaf7d6c6.jpg">
+  <h3>My Love 💕</h3>
+  <p>6 years of love, fights, laughter, and forever.We’re already together, but sometimes I feel like I can never fully put into words how much you mean to me 💖. No book or story could ever describe it… all I can say is, I love you 😘❤️. Hurry up and stay small, and keep up with your diet, my dear Nishuma 🍎💪. You are gorgeous 😍, and don’t ever take a step back—always go forward ➡️. Don’t give up 💖, because you are strong 💪✨ and can do anything you set your mind to 🌟. I’m always with you 🤗, so don’t be afraid 😘. Your smile 😄 and sweet little ways make my whole day special 🌸, and being around you makes me really happy ❤️.</p>
+  <button class="back" onclick="show('gifts')">⬅ Back</button>
+</div>
+
+<!-- PHOTOS -->
+<div class="page" id="photos">
+  <img class="gif" src="C:\Users\Anusha\OneDrive\Pictures\Camera imports\2025-08-06\WhatsApp Image 2026-02-14 at 2.13.22 AM.jpeg">
+  <h3>Our Memories 📸</h3>
+  <button onclick="show('final')">Next ❤️</button>
+  <button class="back" onclick="show('gifts')">⬅ Back</button>
+</div>
+
+<!-- FINAL -->
+<div class="page" id="final">
+<video src="C:\Users\Anusha\OneDrive\Pictures\Camera imports\2025-08-06\WhatsApp Video 2026-02-14 at 12.38.57 AM.mp4" controls width="400" height="250" poster="poster.jpg"></video>
+  <div id="typeText"></div>
+  <h3>Will you always be mine?</h3>
+  <button onclick="forever()">YES, FOREVER ❤️</button>
+  <div id="bigHeart">❤️</div>
+  <p id="easter" style="display:none">6 years down… forever to go.</p>
+  <small>Tap the heart</small>
+</div>
+
+<script>
+/* PAGE SWITCH */
+const pages=document.querySelectorAll('.page');
+function show(id){
+  pages.forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='final') startFinal();
+}
+
+/* NO BUTTON */
+noBtn.onmouseenter=()=>noBtn.style.transform=
+`translate(${Math.random()*180-90}px,${Math.random()*140-70}px)`;
+
+/* HEARTS */
+setInterval(()=>{
+  const h=document.createElement('div');
+  h.className='heart'+(document.getElementById('final').classList.contains('active')?' slowHeart':'');
+  h.innerText='❤️';
+  h.style.left=Math.random()*100+'vw';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),12000);
+},900);
+
+/* QUIZ */
+const quiz=[
+ {q:'Who is the absolute BOSS?',o:['Nishu','Darshu'],a:1},
+ {q:'Who fights more?',o:['Nishu','Darshu'],a:0},
+ {q:'Who is more beautiful?',o:['Darshu','Nishu'],a:0}
+];
+let qi=0;
+function loadQuiz(){
+  msg.textContent='';
+  const q=quiz[qi];
+  question.textContent=q.q;
+  options.innerHTML='';
+  q.o.forEach((t,i)=>{
+    const b=document.createElement('button');
+    b.className='option';
+    b.textContent=t;
+    b.onclick=()=>{
+      if(i===q.a){
+        msg.textContent='Correct Nishuma🎉';
+        msg.className='correct';
+        setTimeout(()=>{qi++; qi<quiz.length?loadQuiz():show('gifts')},3000);
+      }else{
+        msg.textContent='Think again Nishu 😜 you selected the wrong answer';
+        msg.className='wrong';
+      }
+    };
+    options.appendChild(b);
+  });
+}
+loadQuiz();
+
+/* FINAL TYPEWRITER */
+function startFinal(){
+  const text="Nishuma…\nYou are my today,\nmy tomorrow,\nmy always Love so much.";
+  let i=0; typeText.textContent='';
+  const t=setInterval(()=>{
+    typeText.textContent+=text[i++]||'';
+    if(i>=text.length) clearInterval(t);
+  },80);
+}
+
+/* FOREVER */
+function forever(){
+  bigHeart.style.display='block';
+}
+bigHeart.onclick=()=>{
+  easter.style.display='block';
+};
+</script>
+
+</body>
+</html>
